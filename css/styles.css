@@ -1,5 +1,6 @@
-/* --- 1. RESET Y GENERALES --- */
+/* --- Variables y Tema Oscuro --- */
 :root {
+    /* Tema Claro (Default) */
     --color-bg: #f0f4f8;
     --color-text-primary: #333;
     --color-text-secondary: #555;
@@ -10,13 +11,36 @@
     --color-btn-green: #98ca3f;
     --color-btn-green-hover: #86b336;
     --color-border-card: #e1e1e1;
+    --color-card-bg: white;
+    --color-navbar-bg: rgba(0, 47, 68, 0.85);
+    /* Semitransparente para glassmorphism */
     --font-family-base: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+[data-theme="dark"] {
+    /* Tema Oscuro */
+    --color-bg: #0f172a;
+    --color-text-primary: #f1f5f9;
+    --color-text-secondary: #cbd5e1;
+    --color-text-tertiary: #94a3b8;
+    --color-primary-dark: #38bdf8;
+    /* Azul más claro para títulos en dark */
+    --color-primary-blue: #3b82f6;
+    --color-link-hover: #7dd3fc;
+    --color-btn-green: #84cc16;
+    /* Lime green */
+    --color-btn-green-hover: #65a30d;
+    --color-border-card: #334155;
+    --color-card-bg: #1e293b;
+    --color-navbar-bg: rgba(15, 23, 42, 0.85);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    /* Transición suave de tema */
 }
 
 body {
@@ -25,17 +49,21 @@ body {
     color: var(--color-text-primary);
 }
 
-/* --- 2. NAVBAR --- */
+/* --- 2. NAVBAR (Glassmorphism) --- */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--color-primary-dark);
+    background-color: var(--color-navbar-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    /* Safari support */
     padding: 15px 5%;
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .logo img {
@@ -226,4 +254,143 @@ body {
         width: 100%;
         text-align: center;
     }
+}
+
+/* --- BOTÓN TEMA --- */
+.theme-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-right: 15px;
+    padding: 5px;
+    border-radius: 50%;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.theme-btn:hover {
+    transform: rotate(15deg) scale(1.1);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* --- ANIMACIONES SCROLL --- */
+.hidden-card {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Curva suave */
+}
+
+.visible-card {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ajuste de colores para elementos específicos en Dark Mode */
+/* --- DETALLE CURSO --- */
+.course-detail-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.btn-back {
+    display: inline-block;
+    color: var(--color-primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 20px;
+    transition: color 0.3s;
+}
+
+.btn-back:hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+}
+
+.detail-title {
+    color: var(--color-primary-dark);
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background-color: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.badge-level {
+    display: inline-block;
+    background-color: var(--color-primary-blue);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.blog-section {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.blog-section h3 {
+    color: var(--color-primary-dark);
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+
+.blog-section p {
+    margin-bottom: 15px;
+}
+
+.syllabus-section {
+    background-color: var(--color-card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border-card);
+}
+
+.syllabus-section h3 {
+    color: var(--color-primary-dark);
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--color-btn-green);
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.syllabus-section ul {
+    list-style-type: none;
+}
+
+.syllabus-section li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--color-border-card);
+    color: var(--color-text-tertiary);
+}
+
+.syllabus-section li:last-child {
+    border-bottom: none;
+}
+
+.course-card {
+    background-color: var(--color-card-bg);
+    /* Variable nueva para fondo de tarjeta */
 }
