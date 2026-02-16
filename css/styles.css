@@ -35,7 +35,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .logo img {
@@ -74,8 +74,17 @@ body {
     transform: scale(1.05);
 }
 
-.login { background: transparent; color: white; border: 1px solid white; }
-.signup { background-color: var(--color-primary-blue); color: white; margin-left: 10px; }
+.login {
+    background: transparent;
+    color: white;
+    border: 1px solid white;
+}
+
+.signup {
+    background-color: var(--color-primary-blue);
+    color: white;
+    margin-left: 10px;
+}
 
 /* --- 3. SECCIÓN HERO (Títulos y 3 imágenes) --- */
 .hero-section {
@@ -109,7 +118,7 @@ body {
     height: 180px;
     object-fit: cover;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s;
 }
 
@@ -132,6 +141,13 @@ body {
     padding-left: 15px;
 }
 
+/* Contenedor dinámico de cursos */
+.cursos-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 /* ESTA ES LA TARJETA TIPO PLATZI */
 .course-card {
     display: flex;
@@ -139,7 +155,7 @@ body {
     background-color: white;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     gap: 20px;
     border: 1px solid var(--color-border-card);
 }
@@ -186,14 +202,28 @@ body {
 
 /* --- MEDIA QUERIES (Celulares) --- */
 @media (max-width: 768px) {
-    .navbar { flex-direction: column; gap: 15px; }
-    .nav-links { gap: 10px; font-size: 0.9rem; }
-    
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        gap: 10px;
+        font-size: 0.9rem;
+    }
+
     .course-card {
         flex-direction: column;
         text-align: center;
     }
-    
-    .card-img { width: 100%; height: 200px; }
-    .btn-vamos { width: 100%; text-align: center; }
+
+    .card-img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .btn-vamos {
+        width: 100%;
+        text-align: center;
+    }
 }
