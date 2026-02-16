@@ -66,12 +66,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeToggleBtn = document.getElementById('theme-toggle');
 
     // --- ENRUTAMIENTO SIMPLE ---
+    // Detectamos en qué página estamos por los contenedores
     if (contenedorCursos) {
-        renderizarCursos();
+        renderizarInicio();
     }
 
     if (contenedorDetalle) {
-        cargarPantallaCurso();
+        renderizarCurso();
     }
 
     // Inicializar tema en todas las páginas
@@ -79,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- FUNCIONES ---
 
-    function renderizarCursos() {
+    function renderizarInicio() {
         contenedorCursos.innerHTML = '';
         cursosDB.forEach((curso) => {
             const tarjeta = document.createElement('div');
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>${curso.titulo}</h3>
                     <p>${curso.descripcionCorta}</p>
                 </div>
-                <a href="${linkDetalle}" class="btn-vamos">Vamos ▶</a>
+                <a href="${linkDetalle}" class="btn-vamos">Comenzar ▶</a>
             `;
             contenedorCursos.appendChild(tarjeta);
         });
@@ -101,12 +102,12 @@ document.addEventListener('DOMContentLoaded', () => {
         iniciarAnimacionesScroll();
     }
 
-    function cargarPantallaCurso() {
+    function renderizarCurso() {
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
 
         if (!id) {
-            contenedorDetalle.innerHTML = '<h2>Error: No se especificó ningún curso.</h2>';
+            contenedorDetalle.innerHTML = '<h2 style="text-align:center;">Error: No se especificó ningún curso.</h2><div style="text-align:center;"><a href="index.html" class="btn-vamos">Volver al inicio</a></div>';
             return;
         }
 
@@ -116,34 +117,37 @@ document.addEventListener('DOMContentLoaded', () => {
             // Generar lista de temario
             const listaTemario = curso.temario.map(item => `<li>${item}</li>`).join('');
 
+            // Inyectamos la estructura Grid Layout solicitada
             contenedorDetalle.innerHTML = `
-                <div class="course-detail-container">
-                    <a href="index.html" class="btn-back">← Volver</a>
-                    
-                    <h1 class="detail-title">${curso.titulo}</h1>
-                    
-                    <div class="video-container">
-                        <iframe src="${curso.videoPrincipal}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                    </div>
-
-                    <div class="detail-content">
+                <div class="course-container">
+                    <!-- Columna Izquierda: Contenido Principal -->
+                    <div class="course-main-content">
                         <span class="badge-level">${curso.nivel}</span>
+                        <h1 class="course-title title-dark-mode">${curso.titulo}</h1>
                         
-                        <div class="blog-section">
+                        <div class="video-container">
+                            <iframe src="${curso.videoPrincipal}" title="${curso.titulo}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="blog-content">
                             ${curso.contenidoBlog}
                         </div>
-
-                        <div class="syllabus-section">
-                            <h3>Lo que aprenderás:</h3>
-                            <ul>
+                    </div>
+                    
+                    <!-- Columna Derecha: Sidebar Sticky -->
+                    <aside class="course-sidebar">
+                        <div class="sticky-wrapper">
+                            <h3>Contenido del Curso</h3>
+                            <ul class="syllabus-list">
                                 ${listaTemario}
                             </ul>
+                            <a href="index.html" class="btn-back" style="margin-top: 20px; display: block; text-align: center;">← Volver al inicio</a>
                         </div>
-                    </div>
+                    </aside>
                 </div>
             `;
         } else {
-            contenedorDetalle.innerHTML = '<h2>Error: Curso no encontrado.</h2>';
+            contenedorDetalle.innerHTML = '<h2 style="text-align:center;">Error: Curso no encontrado.</h2><div style="text-align:center;"><a href="index.html" class="btn-vamos">Volver al inicio</a></div>';
         }
     }
 

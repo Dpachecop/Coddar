@@ -287,55 +287,32 @@ body {
 }
 
 /* Ajuste de colores para elementos específicos en Dark Mode */
-/* --- DETALLE CURSO --- */
-.course-detail-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+/* --- 5. DETALLE CURSO (Grid Layout & Blog) --- */
+.learning-section#detalle-curso {
+    max-width: 100% !important;
+    /* Permitir que el grid controle el ancho */
+    padding: 0 !important;
+    margin-top: 0 !important;
 }
 
-.btn-back {
-    display: inline-block;
-    color: var(--color-primary-blue);
-    text-decoration: none;
-    font-weight: bold;
-    margin-bottom: 20px;
-    transition: color 0.3s;
+.course-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    /* Columna principal 2x más ancha que sidebar */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
 }
 
-.btn-back:hover {
-    color: var(--color-link-hover);
-    text-decoration: underline;
-}
-
-.detail-title {
-    color: var(--color-primary-dark);
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-}
-
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    /* 16:9 Aspect Ratio */
-    height: 0;
-    overflow: hidden;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-    background-color: #000;
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+/* Columna Izquierda */
+.course-main-content {
+    display: flex;
+    flex-direction: column;
 }
 
 .badge-level {
-    display: inline-block;
+    align-self: flex-start;
     background-color: var(--color-primary-blue);
     color: white;
     padding: 5px 15px;
@@ -345,49 +322,139 @@ body {
     margin-bottom: 20px;
 }
 
-.blog-section {
-    color: var(--color-text-secondary);
-    line-height: 1.8;
+.course-title {
+    color: var(--color-primary-dark);
+    font-size: 2.5rem;
+    line-height: 1.2;
     margin-bottom: 30px;
 }
 
-.blog-section h3 {
-    color: var(--color-primary-dark);
-    margin-bottom: 10px;
-    font-size: 1.4rem;
+[data-theme="dark"] .course-title {
+    color: var(--color-text-primary);
 }
 
-.blog-section p {
-    margin-bottom: 15px;
-}
-
-.syllabus-section {
-    background-color: var(--color-card-bg);
-    padding: 25px;
+.video-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    /* Moderno reemplazo a padding-bottom hacks */
     border-radius: 12px;
-    border: 1px solid var(--color-border-card);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    background-color: #000;
 }
 
-.syllabus-section h3 {
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Tipografía Editorial para Blog */
+.blog-content {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+    font-size: 1.1rem;
+    margin-top: 30px;
+}
+
+.blog-content h3 {
     color: var(--color-primary-dark);
+    margin-top: 40px;
     margin-bottom: 15px;
+    font-size: 1.5rem;
     border-bottom: 2px solid var(--color-btn-green);
     display: inline-block;
     padding-bottom: 5px;
 }
 
-.syllabus-section ul {
-    list-style-type: none;
+[data-theme="dark"] .blog-content h3 {
+    color: var(--color-primary-blue);
 }
 
-.syllabus-section li {
-    padding: 10px 0;
+.blog-content p {
+    margin-bottom: 20px;
+}
+
+.blog-content strong {
+    color: var(--color-primary-dark);
+}
+
+[data-theme="dark"] .blog-content strong {
+    color: var(--color-link-hover);
+}
+
+/* Columna Derecha (Sidebar) */
+.course-sidebar {
+    /* El sidebar sigue el flujo normal del grid */
+}
+
+.sticky-wrapper {
+    position: sticky;
+    top: 100px;
+    /* Se pega al scrollear */
+    background-color: var(--color-card-bg);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--color-border-card);
+}
+
+.sticky-wrapper h3 {
+    color: var(--color-primary-dark);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--color-border-card);
-    color: var(--color-text-tertiary);
 }
 
-.syllabus-section li:last-child {
+[data-theme="dark"] .sticky-wrapper h3 {
+    color: var(--color-text-primary);
+}
+
+.syllabus-list {
+    list-style: none;
+}
+
+.syllabus-list li {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--color-text-tertiary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+[data-theme="dark"] .syllabus-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.syllabus-list li:hover {
+    color: var(--color-primary-blue);
+    transform: translateX(5px);
+}
+
+.syllabus-list li:last-child {
     border-bottom: none;
+}
+
+/* --- RESPONSIVE OPTIMIZATION --- */
+@media (max-width: 968px) {
+    .course-container {
+        grid-template-columns: 1fr;
+        /* Una sola columna */
+        gap: 40px;
+    }
+
+    .course-sidebar {
+        order: 2;
+        /* Sidebar abajo del contenido */
+    }
+
+    .sticky-wrapper {
+        position: static;
+        /* Ya no es sticky en móvil */
+    }
 }
 
 .course-card {
