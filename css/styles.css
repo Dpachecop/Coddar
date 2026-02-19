@@ -85,7 +85,9 @@ body {
     transition: color 0.3s;
 }
 
-.nav-links a:hover {
+
+.nav-links a:hover,
+.nav-links a.active {
     color: var(--color-link-hover);
 }
 
@@ -460,4 +462,183 @@ body {
 .course-card {
     background-color: var(--color-card-bg);
     /* Variable nueva para fondo de tarjeta */
+}
+
+/* --- 6. SECCIÓN ACERCA DE --- */
+.about-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* Columna Izquierda: Perfil */
+.about-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-img-container {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    border: 4px solid white;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-profile h1 {
+    font-size: 1.8rem;
+    color: var(--color-primary-dark);
+    margin-bottom: 5px;
+}
+
+.about-profile h2 {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    margin-bottom: 30px;
+}
+
+.contact-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-outline {
+    padding: 8px 20px;
+    border-radius: 20px;
+    border: 1px solid var(--color-text-tertiary);
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    border-color: var(--color-primary-blue);
+    color: var(--color-primary-blue);
+    background-color: rgba(0, 123, 255, 0.05);
+}
+
+/* Columna Derecha: Info */
+.info-block {
+    margin-bottom: 40px;
+}
+
+.info-block h3 {
+    color: var(--color-primary-dark);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--color-btn-green);
+    padding-left: 15px;
+}
+
+.info-block p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+/* Skills Tags */
+.skills-category {
+    margin-bottom: 25px;
+}
+
+.skills-category h4 {
+    font-size: 1rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    padding: 8px 15px;
+    border-radius: 20px;
+    background: white;
+    border: 1px solid var(--color-border-card);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-primary-blue);
+    color: var(--color-primary-blue);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.1);
+}
+
+/* Lista Educación */
+.education-list {
+    list-style: none;
+}
+
+.education-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+.education-list li:last-child {
+    border-bottom: none;
+}
+
+/* Dark Mode Adjustments */
+[data-theme="dark"] .profile-img-container {
+    border-color: var(--color-card-bg);
+}
+
+[data-theme="dark"] .about-profile h1,
+[data-theme="dark"] .info-block h3 {
+    color: var(--color-text-primary);
+}
+
+[data-theme="dark"] .skill-tag {
+    background: var(--color-card-bg);
+    border-color: var(--color-border-card);
+    color: var(--color-text-secondary);
+}
+
+/* Responsive About */
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .about-profile {
+        margin-bottom: 20px;
+    }
 }
