@@ -78,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar tema en todas las páginas
     inicializarTema();
 
+    // Inicializar Carrusel si existe
+    iniciarCarrusel();
+
     // --- FUNCIONES ---
 
     function renderizarInicio() {
@@ -198,5 +201,116 @@ document.addEventListener('DOMContentLoaded', () => {
             document.documentElement.setAttribute('data-theme', targetTheme);
             localStorage.setItem('theme', targetTheme);
         });
+    }
+
+    function iniciarCarrusel() {
+        const track = document.querySelector('.carousel-track');
+        // Si no hay carrusel en esta página, salimos
+        if (!track) return;
+
+        const slides = Array.from(track.children);
+        const nextButton = document.querySelector('.carousel-btn.next');
+        const prevButton = document.querySelector('.carousel-btn.prev');
+        const dotsNav = document.querySelector('.carousel-nav');
+        const dots = Array.from(dotsNav.children);
+
+        // Ancho de slide
+        // Usamos getBoundingClientRect para precisión
+        const slideWidth = slides[0].getBoundingClientRect().width;
+
+        // Acomodar slides uno al lado del otro
+        // Aunque con flexbox ya están alineados, esto no es estrictamente necesario 
+        // si usamos translateX con porcentaje, pero el usuario pidió translateX(-X%)
+        // así que vamos a mover el track basado en índices.
+
+        const moveToSlide = (track, currentSlide, targetSlide) => {
+            const targetIndex = slides.findIndex(slide => slide === targetSlide);
+            // Mover el track
+            track.style.transform = 'translateX(-' + (targetIndex * 100) + '%)';
+
+            // Actualizar clase current
+            currentSlide.classList.remove('current-slide');
+            targetSlide.classList.add('current-slide');
+        };
+
+        const updateDots = (currentDot, targetDot) => {
+            currentDot.classList.remove('current-indicator');
+            targetDot.classList.add('current-indicator');
+        };
+
+        // Click next
+        nextButton.addEventListener('click', () => {
+            const currentSlide = track.querySelector('.current-slide');
+            let nextSlide = currentSlide.nextElementSibling;
+            const currentDot = dotsNav.querySelector('.current-indicator');
+            let nextDot = currentDot.nextElementSibling;
+
+            // Loop infinito
+            if (!nextSlide) {
+                nextSlide = slides[0];
+                nextDot = dots[0];
+            }
+
+            moveToSlide(track, currentSlide, nextSlide);
+            updateDots(currentDot, nextDot);
+            resetAutoplay();
+        });
+
+        // Click prev
+        prevButton.addEventListener('click', () => {
+            const currentSlide = track.querySelector('.current-slide');
+            let prevSlide = currentSlide.previousElementSibling;
+            const currentDot = dotsNav.querySelector('.current-indicator');
+            let prevDot = currentDot.previousElementSibling;
+
+            // Loop infinito
+            if (!prevSlide) {
+                prevSlide = slides[slides.length - 1];
+                prevDot = dots[dots.length - 1];
+            }
+
+            moveToSlide(track, currentSlide, prevSlide);
+            updateDots(currentDot, prevDot);
+            resetAutoplay();
+        });
+
+        // Click dots
+        dotsNav.addEventListener('click', e => {
+            const targetDot = e.target.closest('button');
+            if (!targetDot) return;
+
+            const currentSlide = track.querySelector('.current-slide');
+            const currentDot = dotsNav.querySelector('.current-indicator');
+            const targetIndex = dots.findIndex(dot => dot === targetDot);
+            const targetSlide = slides[targetIndex];
+
+            moveToSlide(track, currentSlide, targetSlide);
+            updateDots(currentDot, targetDot);
+            resetAutoplay();
+        });
+
+        // Autoplay
+        let autoplayInterval = setInterval(autoPlayNext, 4000);
+
+        function autoPlayNext() {
+            // Simular click en next
+            const currentSlide = track.querySelector('.current-slide');
+            let nextSlide = currentSlide.nextElementSibling;
+            const currentDot = dotsNav.querySelector('.current-indicator');
+            let nextDot = currentDot.nextElementSibling;
+
+            if (!nextSlide) {
+                nextSlide = slides[0];
+                nextDot = dots[0];
+            }
+
+            moveToSlide(track, currentSlide, nextSlide);
+            updateDots(currentDot, nextDot);
+        }
+
+        function resetAutoplay() {
+            clearInterval(autoplayInterval);
+            autoplayInterval = setInterval(autoPlayNext, 4000);
+        }
     }
 });
